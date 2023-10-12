@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+        }
+        .form-container button:hover {
+            opacity: 0.8;
+        }
+
+<!--   -----------------------------------------     ------------->
+        .form-container1 body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container1 {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .form-container1 input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container1 button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+        }
+        .form-container1 button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Add Author</h2>
+    <form id="authorForm">
+        <label for="authorName">Author Name:</label>
+        <input type="text" id="authorName" name="authorName" required>
+        <label for="authorName">Author Country:</label>
+        <input type="text" id="authorCountry" name="Country" required>
+        <label for="authorName">Author Gender:</label>
+        <select name="gender" id="authorGender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<!--<div class="form-container1">-->
+<!--    <h2>Update Author</h2>-->
+
+<!--    <form id="updateAuthorForm">-->
+<!--        <label for="authorId">Author ID:</label>-->
+<!--        <input type="text" id="authorId" required><br><br>-->
+<!--        <label for="authorName">New Author Name:</label>-->
+<!--        <input type="text" id="authorName" required><br><br>-->
+<!--        <label for="authorName">Author Country:</label>-->
+<!--        <input type="text" id="authorCountry" name="Country" required><br><br>-->
+<!--        <label for="authorName">Author Gender:</label>-->
+<!--        <select name="gender" id="authorGender">-->
+<!--            <option value="Male">Male</option>-->
+<!--            <option value="Female">Female</option>-->
+<!--            <option value="Others">Others</option>-->
+<!--        </select><br><br>-->
+<!--        <button type="submit">Update Author</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+<script>
+    // This is a simple example of how you might handle form submission using JavaScript.
+    document.getElementById('authorForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevents the default form submission behavior
+      //  let authorName = document.getElementById('authorName').value;
+        // Send the authorName to your backend via AJAX or any other method
+        // ...
+        // Handle the response as needed
+
+        var name=document.getElementById("authorName").value
+        var country=document.getElementById("authorCountry").value
+        var gender=document.getElementById("authorGender").value
+        var authorData={
+            authorName:name,
+            authorCountry:country,
+            authorGender:gender
+        }
+        fetch('/author',{
+        method:'Post',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(authorData)
+        }).then(response=>response.text()).then(data=>alert("Author created successfully"));
+    });
+
+<!--    --------------------------------------------------------------------->
+<!--    document.getElementById('updateAuthorForm').addEventListener('submit', function(event1) {-->
+<!--        event1.preventDefault(); // Prevents the default form submission behavior-->
+<!--      //  let authorName1 = document.getElementById('authorName1').value;-->
+<!--        // Send the authorName to your backend via AJAX or any other method-->
+<!--        // ...-->
+<!--        // Handle the response as needed-->
+
+<!--        var name1=document.getElementById("authorName").value-->
+<!--        var country1=document.getElementById("authorCountry").value-->
+<!--        var gender1=document.getElementById("authorGender").value-->
+<!--        var authorData={-->
+<!--            authorName:name1,-->
+<!--            authorCountry:country1,-->
+<!--            authorGender:gender1-->
+<!--        }-->
+<!--        fetch('/author',{-->
+<!--        method:'Put',-->
+<!--        headers:{-->
+<!--            'Content-Type':'application/json'-->
+<!--        },-->
+<!--        body: JSON.stringify(authorData)-->
+<!--        }).then(response1=>response1.text()).then(data1=>alert("Author Details Updated successfully"));-->
+<!--    });-->
+
+<!--    ------------------------------------------------------------------------------------>
+
+<!--    document.addEventListener('submit', () => {-->
+<!--    const updateAuthorForm = document.getElementById('updateAuthorForm');-->
+
+<!--    updateAuthorForm.addEventListener('submit', (event) => {-->
+<!--        event.preventDefault(); // Prevents the default form submission-->
+
+<!--        // Get the values from the form-->
+<!--        const authorId = document.getElementById('authorId').value;-->
+<!--        var name1=document.getElementById("authorName").value-->
+<!--        var country1=document.getElementById("authorCountry").value-->
+<!--        var gender1=document.getElementById("authorGender").value-->
+<!--        var authorData1={-->
+<!--            authorName:name1,-->
+<!--            authorCountry:country1,-->
+<!--            authorGender:gender1-->
+<!--        }-->
+
+<!--        fetch('/author/${authorId}', {-->
+<!--         method: 'PUT',-->
+<!--         headers: {-->
+<!--             'Content-Type': 'application/json'-->
+<!--         },-->
+<!--         body: JSON.stringify(authorData1)-->
+<!--     })-->
+<!--     .then(response => response.json())-->
+<!--     .then(data => {-->
+<!--         console.log('Update successful:', data);-->
+<!--     })-->
+<!--     .catch(error => {-->
+<!--         console.error('Error updating author:', error);-->
+<!--     });-->
+<!--    });-->
+</script>
+</body>
+</html>
